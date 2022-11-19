@@ -1,0 +1,8 @@
+# Project exclude paths
+/01-eureka/01-eureka-server/target/
+/01-eureka/02-eureka-client-a/target/
+/01-eureka/02-eureka-client-b/target/
+
+.idea
+.mvn
+/01-eureka/01-eureka-server/eureka-server.iml
