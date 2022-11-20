@@ -3,3 +3,14 @@ server:
 spring:
   application:
     name: eureka-server
+eureka:
+  server:
+    eviction-interval-timer-in-ms: 10000 #清除无效节点的评率(毫秒)
+    renewal-percent-threshold: 0.85 #85%，如果在一个机房的 client 端，15 分钟内有 85%的 client 没有续约，那么则可能是网络原因，认为服务实例没有问题，不会剔除他们，宁可放过一万，不可错杀一个，确保高可用
+    enable-self-preservation: true #server 的自我保护机制，避免因为网络原因造成误剔除,生产环境建议打开
+  instance:
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+    hostname: localhost # 服务主机名称
+    prefer-ip-address: true # 服务列表以 ip 的形式展示
+    lease-expiration-duration-in-seconds: 90  #server 在等待下一个客户端发送的心跳 时间，若在指定时间不能收到客户端心跳，则剔除此实例并且禁止流量
+    lease-renewal-interval-in-seconds: 5 # 表示 eureka client 发送心跳给 server 端的频率
