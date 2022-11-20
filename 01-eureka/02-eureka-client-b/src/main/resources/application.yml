@@ -7,3 +7,12 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true # 注册自己
+    fetch-registry: true # 拉取服务列表
+    registry-fetch-interval-seconds: 10 # 表示 eureka-client 间隔多久去拉取服务注册信息
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+    prefer-ip-address: true # 服务列表以 ip 的形式展示
+    lease-renewal-interval-in-seconds: 10 # 表示 eureka client 发送心跳给 server 端的频率
+    lease-expiration-duration-in-seconds: 30 #表示 eureka server 至上一次收到 client 的心跳之后，等待 下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该实例
