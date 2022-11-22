@@ -6,6 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -28,6 +29,8 @@ public class ConsumerController {
     private RestTemplate restTemplate;
     @Resource
     private DiscoveryClient discoveryClient;
+    @Resource
+    private LoadBalancerClient loadBalancerClient;
 
     private Random rand;
 
@@ -58,6 +61,18 @@ public class ConsumerController {
     public String testRibbon(String serviceName) {
         // 正常调用需要获取服务的 ip + port 以及路径才能调用
         return restTemplate.getForObject("http://" + serviceName + "/hello", String.class);
+    }
+
+    /**
+     * 核心是负载均衡
+     * @param serviceName
+     * @return
+     */
+    @GetMapping("testRibbonRule")
+    public String testRibbonRule(String serviceName) {
+        ServiceInstance choose = loadBalancerClient.choose(serviceName);
+        log.info("{}:{}",choose.getHost(),choose.getPort());
+        return choose.toString();
     }
 
     /**
