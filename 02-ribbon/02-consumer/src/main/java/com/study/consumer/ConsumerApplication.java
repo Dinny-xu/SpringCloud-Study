@@ -18,9 +18,13 @@ public class ConsumerApplication {
     }
 
     @Bean
-//    @LoadBalanced
+    //@LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
+//    @Bean
+//    public IRule myRule() {
+//        return new RandomRule();
+//    }
 }
