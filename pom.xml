@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>01-eureka</module>
+        <module>03-openfeign</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
