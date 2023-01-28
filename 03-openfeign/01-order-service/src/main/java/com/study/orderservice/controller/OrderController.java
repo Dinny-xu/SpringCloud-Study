@@ -15,7 +15,6 @@ public class OrderController {
     @GetMapping("/order")
     public String doOrder() throws InterruptedException {
         log.info("用户来下单了...");
-        Thread.sleep(2000);
         return "下单成功";
     }
 }
