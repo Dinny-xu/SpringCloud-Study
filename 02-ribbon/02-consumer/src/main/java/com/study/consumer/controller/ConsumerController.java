@@ -75,7 +75,6 @@ public class ConsumerController {
     public String testRibbonRule(String serviceName) {
         ServiceInstance choose = loadBalancerClient.choose(serviceName);
         log.info("{}:{}",choose.getHost(),choose.getPort());
-        System.out.println(111);
         return choose.toString();
     }
 
