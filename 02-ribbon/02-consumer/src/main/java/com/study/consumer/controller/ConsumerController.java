@@ -1,6 +1,5 @@
 package com.study.consumer.controller;
 
-
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +43,9 @@ public class ConsumerController {
 
 
     /**
-     * 思考: 通过 http://provider/hello 能否直接调用
+     * 思考:
+     *  为什么@LoadBalanced 注解开启后可以直接调用
+     *  通过 http://provider/info 能否直接调用
      * 1: 添加@LoadBalanced注解后为什么又可以调用了
      * <p>
      * 解决: 1: 拦截请求
@@ -60,8 +61,10 @@ public class ConsumerController {
     @GetMapping("testRibbon")
     public String testRibbon(String serviceName) {
         // 正常调用需要获取服务的 ip + port 以及路径才能调用
-        return restTemplate.getForObject("http://" + serviceName + "/hello", String.class);
+        return restTemplate.getForObject("http://" + serviceName + "/info", String.class);
     }
+
+
 
     /**
      * 核心是负载均衡

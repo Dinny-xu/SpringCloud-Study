@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProviderController {
 
-    @GetMapping("/hello")
+    @GetMapping("/info")
     public String hello() {
-        return "我是提供者B的接口";
+        return "我是provider-b";
     }
 
 }
